@@ -2,20 +2,21 @@
 using AdvanceTaskMarsPart1.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+
 namespace AdvanceTaskMarsPart1.Pages
 {
     public class LanguagePage : CommonDriver
     {
         private IReadOnlyCollection<IWebElement> deleteButtons => driver.FindElements(By.XPath("//div[@data-tab='first']//i[@class='remove icon']"));
-        private IWebElement AddNewButton          => driver.FindElement(By.XPath("//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//th[@class='right aligned']//div"));
-        private IWebElement LanguageTextbox       => driver.FindElement(By.XPath("//input[@name='name']"));
-        private IWebElement LanguageLevelDropdown => driver.FindElement(By.XPath("//select[@name='level']"));
-        private IWebElement AddButton             => driver.FindElement(By.XPath("//input[@value='Add']"));
-        private IWebElement successMessage        => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
-        private IWebElement UpdateNewButton       => driver.FindElement(By.XPath("//input[@value='Update']"));
+        private IWebElement AddNewButton                       => driver.FindElement(By.XPath("//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//th[@class='right aligned']//div"));
+        private IWebElement LanguageTextbox                    => driver.FindElement(By.XPath("//input[@name='name']"));
+        private IWebElement LanguageLevelDropdown              => driver.FindElement(By.XPath("//select[@name='level']"));
+        private IWebElement AddButton                          => driver.FindElement(By.XPath("//input[@value='Add']"));
+        private IWebElement successMessage                     => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
+        private IWebElement UpdateNewButton                    => driver.FindElement(By.XPath("//input[@value='Update']"));
         private Func<string, IWebElement> newLanguage      = language      => driver.FindElement(By.XPath($"//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//td[text()='{language}']"));
         private Func<string, IWebElement> newLanguageLevel = languagelevel => driver.FindElement(By.XPath($"//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//td[text()='{languagelevel}']"));
-        private IWebElement CancelButton          => driver.FindElement(By.XPath("//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//input[@value='Cancel']"));
+        private IWebElement CancelButton                   => driver.FindElement(By.XPath("//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//input[@value='Cancel']"));
         
         public void Delete_All_Records()
         {
