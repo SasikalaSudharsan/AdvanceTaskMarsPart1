@@ -2,16 +2,19 @@
   {
     "Id": 1,
     "Language": "Spanish",
-    "LanguageLevel": "Basic"
+    "LanguageLevel": "Basic",
+    "ExpectedMessage": "Spanish has been added to your languages"
   },
   {
     "Id": 2,
     "Language": "Spanish",
-    "LanguageLevel": "Basic"
+    "LanguageLevel": "Basic",
+    "ExpectedMessage": "This language is already exist in your language list."
   },
   {
     "Id": 3,
     "Language": "#$%^&*(",
-    "LanguageLevel": "Conversational"
+    "LanguageLevel": "Conversational",
+    "ExpectedMessage": "Special characters are not allowed"
   }
 ]

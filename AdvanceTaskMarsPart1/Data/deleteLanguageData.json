@@ -2,6 +2,7 @@
   {
     "Id": 1,
     "Language": "English",
-    "LanguageLevel": "Fluent"
+    "LanguageLevel": "Fluent",
+    "ExpectedMessage": "English has been deleted from your languages"
   }
 ]

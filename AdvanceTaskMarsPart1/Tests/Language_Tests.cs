@@ -57,7 +57,7 @@ namespace AdvanceTaskMarsPart1.Tests
             foreach (var languageData in languageDataList)
             {
                 languagePageObj.Add_Language(languageData);
-                string actualMesasge = languagePageObj.getMessage();
+                string actualMessage = languagePageObj.getMessage();
 
                 // Check if the Language contains special characters
                 bool containsSpecialCharacters = ContainsSpecialCharacters(languageData.Language);
@@ -66,13 +66,13 @@ namespace AdvanceTaskMarsPart1.Tests
                     try
                     {
                         // Verify that the actual message matches the expected message for special characters
-                        Assert.That(actualMesasge == "Special characters are not allowed", "Actual message and expected message do not match");
+                        Assert.That(actualMessage == languageData.ExpectedMessage, "Actual message and expected message do not match");
                     }
                     catch(AssertionException ex)
                     {
                         // Log the failure and capture a screenshot
                         test.Log(Status.Fail, "Language failed: " + ex.Message);
-                        Console.WriteLine(actualMesasge);
+                        Console.WriteLine(actualMessage);
                         CaptureScreenshot("SpecialCharsLanguageFailed");
                     }
                 }
@@ -83,14 +83,14 @@ namespace AdvanceTaskMarsPart1.Tests
                     {
                         Assert.That(languagePageObj.getLanguage(languageData.Language) == languageData.Language, "Actual language and expected language do not match");
                         Assert.That(languagePageObj.getLanguageLevel(languageData.LanguageLevel) == languageData.LanguageLevel, "Actual languagelevel and expected languagelevel do not match");
-                        Console.WriteLine(actualMesasge);
+                        Console.WriteLine(actualMessage);
                     }
                     try
                     {
-                        Assert.That(actualMesasge == "Spanish has been added to your languages" || actualMesasge == "This language is already exist in your language list.", "Actual message and expected message do not match");
+                        Assert.That(actualMessage == languageData.ExpectedMessage || actualMessage == languageData.ExpectedMessage, "Actual message and expected message do not match");
                         test.Log(Status.Pass, "Language passed");
                         // If information already exists, call the cancel method
-                        if (actualMesasge == "This language is already exist in your language list.")
+                        if (actualMessage == languageData.ExpectedMessage)
                         {
                             languagePageObj.getCancel();
                         }
@@ -99,7 +99,7 @@ namespace AdvanceTaskMarsPart1.Tests
                     {
                         // Log the failure and capture a screenshot
                         test.Log(Status.Fail, "Language failed: " + ex.Message);
-                        Console.WriteLine(actualMesasge);
+                        Console.WriteLine(actualMessage);
                         CaptureScreenshot("LanguageTestFailed");
                     }                    
                 }
@@ -118,7 +118,7 @@ namespace AdvanceTaskMarsPart1.Tests
 
             languagePageObj.Update_Language(existingLanguageData, newLanguageData);
             string actualMessage = languagePageObj.getMessage();
-            Assert.That(actualMessage == "English has been updated to your languages", "Actual message and expected message do not match");
+            Assert.That(actualMessage == newLanguageData.ExpectedMessage, "Actual message and expected message do not match");
 
             Assert.That(languagePageObj.getLanguage(newLanguageData.Language) == newLanguageData.Language, "Updated language and expected language do not match");
             Assert.That(languagePageObj.getLanguageLevel(newLanguageData.LanguageLevel) == newLanguageData.LanguageLevel, "Updated languagelevel and expected languagelevel do not match");
@@ -137,7 +137,7 @@ namespace AdvanceTaskMarsPart1.Tests
 
             languagePageObj.Delete_Language(languageData);
             string actualMessage = languagePageObj.getMessage();
-            Assert.That(actualMessage == "English has been deleted from your languages", "Actual message and expected message do not match");
+            Assert.That(actualMessage == languageData.ExpectedMessage, "Actual message and expected message do not match");
 
             string deletedLanguage = languagePageObj.getDeletedLanguage(languageData);
             Assert.That(deletedLanguage == null, "Expected language has not been deleted");
@@ -157,10 +157,10 @@ namespace AdvanceTaskMarsPart1.Tests
             foreach (var languageData in languageDataList)
             {
                 languagePageObj.Add_Language(languageData);
-                string actualMesasge = languagePageObj.getMessage();
-                Assert.That(actualMesasge == "Please enter language and level", "Actual message and expected message do not match");
+                string actualMessage = languagePageObj.getMessage();
+                Assert.That(actualMessage == languageData.ExpectedMessage, "Actual message and expected message do not match");
                 test.Log(Status.Pass, "EmptyTextbox_Language passed");
-                Console.WriteLine(actualMesasge);
+                Console.WriteLine(actualMessage);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿[
   {
     "Language": "",
-    "LanguageLevel": "Fluent"
+    "LanguageLevel": "Fluent",
+    "ExpectedMessage": "Please enter language and level"
   }
 ]

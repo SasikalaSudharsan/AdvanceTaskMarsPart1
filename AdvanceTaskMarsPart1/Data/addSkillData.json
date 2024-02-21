@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Id": 1,
+    "Skill": "Specflow",
+    "SkillLevel": "Intermediate",
+    "ExpectedMessage": "Specflow has been added to your skills"
+  },
+  {
+    "Id": 2,
+    "Skill": "Specflow",
+    "SkillLevel": "Intermediate",
+    "ExpectedMessage": "This skill is already exist in your skill list."
+  },
+  {
+    "Id": 3,
+    "Skill": "#$%^&*",
+    "SkillLevel": "Beginner",
+    "ExpectedMessage": "Special characters are not allowed"
+  }
+]
