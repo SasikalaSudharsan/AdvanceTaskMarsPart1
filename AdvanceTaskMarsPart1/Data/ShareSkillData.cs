@@ -3,6 +3,8 @@ namespace AdvanceTaskMarsPart1.Data
 {
     public class ShareSkillData
     {
+        public int Id { get; set; }
+        public string ExistingTitle { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }

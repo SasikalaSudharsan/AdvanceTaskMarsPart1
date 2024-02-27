@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": 1,
     "Title": "Selenium",
     "Description": "Selenium with Java",
     "Category": "Programming & Tech",
@@ -7,10 +8,18 @@
     "Tags": "Selenium",
     "ServiceType": "Hourly basis service",
     "LocationType": "On-site",
-    "StartDate": "",
-    "EndDate": "",
+    "StartDate": "03/05/2024",
+    "EndDate": "03/30/2024",
     "SkillTrade": "Credit",
     "Credit": "5",
     "Active": "Active"
+  },
+  {
+    "Id": 2,
+    "ExistingTitle" : "Selenium",
+    "Title": "Nunit",
+    "Description": "Nunit framework",
+    "StartDate": "03/08/2024",
+    "EndDate": "03/31/2024"
   }
 ]

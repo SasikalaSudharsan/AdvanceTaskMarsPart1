@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdvanceTaskMarsPart1.Data;
 
 namespace AdvanceTaskMarsPart1.Tests
 {
@@ -43,25 +44,51 @@ namespace AdvanceTaskMarsPart1.Tests
             loginPageObj.LoginActions();
         }
 
-        [Test]
-        public void Add_ShareSkill()
+        [Test, Order(1), Description("This test is adding shareskill in the shareskill list")]
+        [TestCase(1)]
+        public void Add_ShareSkill(int id)
         {
+            test = extent.CreateTest("Add_ShareSkill").Info("Test started");
+            ShareSkillData shareSkillData = ShareSkillDataHelper.ReadShareSkillData(@"addShareSkillData.json").FirstOrDefault(x => x.Id == id);
             homePageObj.GoToShareSkillPage();
-            shareSkillPageObj.Add_ShareSkill();
+            shareSkillPageObj.Add_ShareSkill(shareSkillData);
             //Check the added shareskill in the list in ManageListings 
             shareSkillPageObj.ManageListings();
-            string newTitle = shareSkillPageObj.getTitle("Selenium");
-            Assert.That(newTitle == "Selenium", "Actual message and expected message do not match");
+            string newTitle = shareSkillPageObj.getTitle(shareSkillData.Title);
+            Assert.That(newTitle == shareSkillData.Title, "Actual message and expected message do not match");
+            test.Log(Status.Pass, "Add_ShareSkill passed");
         }
 
-        [Test]
-        public void Update_ShareSkill()
+        [Test, Order(2), Description("This test is updating an existing shareskill in the shareskill list")]
+        [TestCase(2)]
+        public void Update_ShareSkill(int id)
         {
-            shareSkillPageObj.Update_ShareSkill();
+            test = extent.CreateTest("Update_ShareSkill").Info("Test started");
+
+            ShareSkillData shareSkillData = ShareSkillDataHelper.ReadShareSkillData(@"addShareSkillData.json").FirstOrDefault(x => x.Id == id);
+
+            shareSkillPageObj.Update_ShareSkill(shareSkillData);
             //Check the updated shareskill in the list in ManageListings 
             shareSkillPageObj.ManageListings();
-            string newTitle = shareSkillPageObj.getTitle("Nunit");
-            Assert.That(newTitle == "Nunit", "Actual message and expected message do not match"); 
+            string newTitle = shareSkillPageObj.getTitle(shareSkillData.Title);
+            Assert.That(newTitle == shareSkillData.Title, "Actual message and expected message do not match");
+            test.Log(Status.Pass, "Update_ShareSkill passed");
+        }
+
+        [Test, Order(3), Description("This test is deleting an existing shareskill in the shareskill list")]
+        [TestCase(2)]
+        public void Delete_ShareSkill(int id)
+        {
+            test = extent.CreateTest("Delete_ShareSkill").Info("Test started");
+
+            ShareSkillData shareSkillData = ShareSkillDataHelper.ReadShareSkillData(@"addShareSkillData.json").FirstOrDefault(x => x.Id == id);
+
+            shareSkillPageObj.Delete_ShareSkill(shareSkillData);
+
+            string actualMessage = shareSkillPageObj.getMessage();
+            Assert.That(actualMessage == "Nunit has been deleted", "Actual message and expected message do not match");
+            test.Log(Status.Pass, "Delete_ShareSkill passed");
+            Console.WriteLine(actualMessage);
         }
 
         [TearDown]
