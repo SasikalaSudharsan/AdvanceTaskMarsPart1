@@ -3,11 +3,6 @@ using AdvanceTaskMarsPart1.Utilities;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AdvanceTaskMarsPart1.Data;
 
 namespace AdvanceTaskMarsPart1.Tests
@@ -37,6 +32,7 @@ namespace AdvanceTaskMarsPart1.Tests
             //Attach the ExtentSparkReporter to the ExtentReports
             extent.AttachReporter(SparkReporter);
         }
+
         [SetUp]
         public void SetUp()
         {
