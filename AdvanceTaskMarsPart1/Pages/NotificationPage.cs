@@ -1,10 +1,5 @@
 ﻿using AdvanceTaskMarsPart1.Utilities;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvanceTaskMarsPart1.Pages
 {
@@ -18,6 +13,10 @@ namespace AdvanceTaskMarsPart1.Pages
         private IWebElement SelectCheckbox    => driver.FindElement(By.XPath("(//div[@class='one wide column']/input[@type='checkbox'])[1]"));
         private IWebElement DeleteButton      => driver.FindElement(By.XPath("//div[@data-tooltip='Delete selection']"));
         private IWebElement Message           => driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
+        private IWebElement MarkSelectionAsRead => driver.FindElement(By.XPath("//i[@class='check square icon']"));
+        private IWebElement SelectAllButton     => driver.FindElement(By.XPath("//div[@data-tooltip='Select all']"));
+        private IWebElement UnSelectAllButton   => driver.FindElement(By.XPath("//i[@class='ban icon']"));
+        private IReadOnlyCollection<IWebElement> CheckBoxSelected => driver.FindElements(By.XPath("//input[@type='checkbox']"));
 
         public void LoadMore_Notification()
         {
@@ -62,6 +61,45 @@ namespace AdvanceTaskMarsPart1.Pages
         {
             Wait.WaitToExist("XPath", "//div[@class='ns-box-inner']", 4);
             return Message.Text;
+        }
+
+        public void MarkAsRead_Notification()
+        {
+            Wait.WaitToBeClickable("XPath", "//div[@class='ui top left pointing dropdown item']", 4);
+            NotificationTab.Click();
+            Wait.WaitToBeClickable("XPath", "//a[text()='See All...']", 6);
+            SeeAllLink.Click();
+            Wait.WaitToBeClickable("XPath", "(//div[@class='one wide column']/input[@type='checkbox'])[1]", 4);
+            SelectCheckbox.Click();            
+            MarkSelectionAsRead.Click();
+        }
+
+        public void SelectAll_Notification()
+        {
+            Wait.WaitToBeClickable("XPath", "//div[@class='ui top left pointing dropdown item']", 4);
+            NotificationTab.Click();
+            Wait.WaitToBeClickable("XPath", "//a[text()='See All...']", 6);
+            SeeAllLink.Click();
+            // Wait.WaitToBeClickable("XPath", "//div[@data-tooltip='Select all']", 4);
+            Thread.Sleep(4000);
+            SelectAllButton.Click();
+        }
+
+        public void UnSelectAll_Notification()
+        {
+            Wait.WaitToBeClickable("XPath", "//div[@class='ui top left pointing dropdown item']", 4);
+            NotificationTab.Click();
+            Wait.WaitToBeClickable("XPath", "//a[text()='See All...']", 6);
+            SeeAllLink.Click();
+            // Wait.WaitToBeClickable("XPath", "//div[@data-tooltip='Select all']", 4);
+            Thread.Sleep(4000);
+            SelectAllButton.Click();            
+            UnSelectAllButton.Click();
+        }
+
+        public List<IWebElement> VerifyChechboxSelected()
+        {
+            return new List<IWebElement>(CheckBoxSelected);
         }
     }
 }

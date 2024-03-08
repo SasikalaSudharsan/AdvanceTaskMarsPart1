@@ -27,7 +27,7 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void Add_ShareSkill(ShareSkillData shareSkillData)
         {
-            Thread.Sleep(4000);            
+            Wait.WaitToBeClickable("XPath", "//input[@name='title']", 4);
             TitleTextbox.SendKeys(shareSkillData.Title);            
             DescriptionTextbox.SendKeys(shareSkillData.Description);
             SelectElement chooseCategory = new SelectElement(CategoryDropdown);
@@ -55,7 +55,7 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void ManageListings()
         {
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//a[text()='Manage Listings']", 4);
             ManageListingsTab.Click();
         }
 
@@ -67,12 +67,12 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void Update_ShareSkill(ShareSkillData shareSkillData)
         {
-            Thread.Sleep(4000);            
+            Wait.WaitToBeClickable("XPath", "//a[text()='Manage Listings']", 4);
             ManageListingsTab.Click();
             Thread.Sleep(4000);
             IWebElement UpdateButton = driver.FindElement(By.XPath($"//td[text()='{shareSkillData.ExistingTitle}']/following-sibling::td/div/button[@class='ui button']/i[@class='outline write icon']"));
             UpdateButton.Click();
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//input[@name='title']", 4);
             TitleTextbox.Clear();
             TitleTextbox.SendKeys(shareSkillData.Title);
             DescriptionTextbox.Clear();
@@ -84,7 +84,7 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void Delete_ShareSkill(ShareSkillData shareSkillData)
         {
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//a[text()='Manage Listings']", 4);
             ManageListingsTab.Click() ;
             Thread.Sleep(4000);
             IWebElement DeleteButton = driver.FindElement(By.XPath($"//td[text()='{shareSkillData.Title}']/following-sibling::td/div/button[@class='ui button']/i[@class='remove icon']"));

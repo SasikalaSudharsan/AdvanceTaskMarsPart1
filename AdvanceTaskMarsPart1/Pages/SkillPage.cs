@@ -38,7 +38,7 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void Add_Skill(SkillData skilldata)
         {
-            Thread.Sleep(4000);
+            Wait.WaitToExist("XPath", "//div[@class='four wide column' and h3='Skills']/following-sibling::div[@class='twelve wide column scrollTable']//th[@class='right aligned']//div", 4);
             AddNewButton.Click();
             SkillTextbox.SendKeys(skilldata.Skill);
             SelectElement chooseSkillLevel = new SelectElement(SkillLevelDropdown);

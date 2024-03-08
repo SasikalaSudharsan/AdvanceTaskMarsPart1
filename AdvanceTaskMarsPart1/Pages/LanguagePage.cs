@@ -37,7 +37,7 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void Add_Language(LanguageData languageData)
         {
-            Thread.Sleep(4000);            
+            Wait.WaitToBeClickable("XPath", "//div[@class='four wide column' and h3='Languages']/following-sibling::div[@class='twelve wide column scrollTable']//th[@class='right aligned']//div", 4);
             AddNewButton.Click();
             LanguageTextbox.SendKeys(languageData.Language);
             SelectElement chooseLanguageLevel = new SelectElement(LanguageLevelDropdown);
@@ -47,7 +47,6 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public string getMessage()
         {
-            //Thread.Sleep(4000);
             Wait.WaitToExist("XPath", "//div[@class='ns-box-inner']", 4);
             //Get the text message after adding language
             return successMessage.Text;

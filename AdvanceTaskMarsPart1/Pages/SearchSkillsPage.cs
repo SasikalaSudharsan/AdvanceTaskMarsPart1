@@ -16,11 +16,11 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void SearchSkills_Categories(SearchSkillData searchSkillData)
         {
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//input[@placeholder='Search skills']", 4);
             SearchSkillsButton.Click();
             SearchSkillsButton.SendKeys(searchSkillData.SearchSkill);
             SearchButton.Click();
-            Thread.Sleep(4000);            
+            Wait.WaitToBeClickable("XPath", "//a[text()='Programming & Tech']", 4);
             SelectCategory.Click();            
             SelectSubcategory.Click();
         }
@@ -39,11 +39,11 @@ namespace AdvanceTaskMarsPart1.Pages
 
         public void SearchSkills_Filters(SearchSkillData searchSkillData)
         {
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//input[@placeholder='Search skills']", 4);
             SearchSkillsButton.Click();
             SearchSkillsButton.SendKeys(searchSkillData.SearchSkill);
             SearchButton.Click();
-            Thread.Sleep(4000);
+            Wait.WaitToBeClickable("XPath", "//button[text()='Online']", 4);
             OnlineButton.Click();
         }
     }
