@@ -7,14 +7,8 @@
   },
   {
     "Id": 2,
-    "Skill": "Specflow",
-    "SkillLevel": "Intermediate",
-    "ExpectedMessage": "This skill is already exist in your skill list."
-  },
-  {
-    "Id": 3,
-    "Skill": "#$%^&*",
+    "Skill": "Cucumber",
     "SkillLevel": "Beginner",
-    "ExpectedMessage": "Special characters are not allowed"
+    "ExpectedMessage": "Cucumber has been added to your skills"
   }
 ]

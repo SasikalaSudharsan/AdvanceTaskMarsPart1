@@ -1,8 +1,10 @@
 ﻿[
   {
+    "Id" :  1,
     "SearchSkill": "Java"
   },
   {
+    "Id" : 2,
     "SearchSkill": "@$%^&"
   }
 ]

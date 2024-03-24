@@ -3,9 +3,9 @@ using OpenQA.Selenium;
 
 namespace AdvanceTaskMarsPart1.Utilities
 {
-    public class Wait : CommonDriver
+    public class Wait : BaseSetUp
     {
-        public static void WaitToBeClickable(string locatorType, string locatorValue, int seconds)
+        public static void WaitToBeClickable(IWebDriver driver, string locatorType, string locatorValue, int seconds)
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
 
@@ -28,7 +28,30 @@ namespace AdvanceTaskMarsPart1.Utilities
 
         }
 
-        public static void WaitToExist(string locatorType, string locatorValue, int seconds)
+        public static void WaitToExist(IWebDriver driver, string locatorType, string locatorValue, int seconds)
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
+
+            if (locatorType == "XPath")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(locatorValue)));
+            }
+            if (locatorType == "Id")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id(locatorValue)));
+            }
+            if (locatorType == "CssSelector")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector(locatorValue)));
+            }
+            if (locatorType == "Class")
+            {
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.ClassName(locatorValue)));
+            }
+
+        }
+
+        public static void WaitToBeVisible(IWebDriver driver,string locatorType, string locatorValue, int seconds)
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, seconds));
 

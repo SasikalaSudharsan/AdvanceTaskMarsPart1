@@ -1,51 +1,41 @@
-﻿using AdvanceTaskMarsPart1.Data;
-using AdvanceTaskMarsPart1.Pages;
+﻿using AdvanceTaskMarsPart1.Pages.Components.ProfileOverview;
+using AdvanceTaskMarsPart1.Steps;
 using AdvanceTaskMarsPart1.Utilities;
 using AventStack.ExtentReports;
-using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 
 namespace AdvanceTaskMarsPart1.Tests
 {
-    public class Skill_Tests : CommonDriver
+    [TestFixture]
+    public class Skill_Tests : BaseSetUp
     {
-        LoginPage loginPageObj;
-        HomePage homePageObj;
-        SkillPage skillPageObj;
-        public static ExtentReports extent;
+        LoginSteps loginSteps;
+        ProfileMenuTabsComponents profileMenuTabsComponents;
+        AddAndUpdateSkillComponent addAndUpdateSkillComponent;
+        SkillSteps skillSteps;
         public static ExtentTest test;
 
         public Skill_Tests()
         {
-            loginPageObj = new LoginPage();
-            homePageObj = new HomePage();
-            skillPageObj = new SkillPage();
-        }
-
-        [OneTimeSetUp]
-        public static void ExtentStart()
-        {
-            //Create new instance of ExtentReports
-            extent = new ExtentReports();
-            //Create new instance of ExtentSparkReporter
-            var SparkReporter = new ExtentSparkReporter(@"D:\Sasikala\MVP_Studio\AdvanceTaskPart1\AdvanceTaskMarsPart1\AdvanceTaskMarsPart1\ExtentReports\Skill.html");
-            //Attach the ExtentSparkReporter to the ExtentReports
-            extent.AttachReporter(SparkReporter);
+            loginSteps = new LoginSteps();
+            profileMenuTabsComponents = new ProfileMenuTabsComponents();
+            addAndUpdateSkillComponent = new AddAndUpdateSkillComponent();
+            skillSteps = new SkillSteps();
         }
 
         [SetUp]
         public void SetUp()
         {
             Initialize();
-            loginPageObj.LoginActions();
-            homePageObj.GoToSkillsPage();
+            loginSteps.doLogin();
+            profileMenuTabsComponents.clickSkillsTab();
         }
 
         [Test, Order(1), Description("This test is deleting all records in skill list")]
         public void Delete_All_Records()
         {
             test = extent.CreateTest("Delete_AllRecords").Info("Test started");
-            skillPageObj.Delete_All_Records();
+            addAndUpdateSkillComponent.DeleteAllRecords();
             test.Log(Status.Pass, "Delete_AllRecords passed");
         }
 
@@ -53,60 +43,8 @@ namespace AdvanceTaskMarsPart1.Tests
         public void Add_Skill()
         {
             test = extent.CreateTest("Add_Skill").Info("Test started");
-            // Read test data for the AddSkill test case
-            List<SkillData> skillDataList = SkillDataHelper.ReadSkillData(@"addSkillData.json");
-
-            // Iterate through test data and retrieve AddSkill test data
-            foreach (var skillData in skillDataList)
-            {
-                skillPageObj.Add_Skill(skillData);
-                string actualMesasge = skillPageObj.getMessage();
-
-                // Check if the Skill contains special characters
-                bool containsSpecialCharacters = ContainsSpecialCharacters(skillData.Skill);
-                if (containsSpecialCharacters)
-                {
-                    try
-                    {
-                        // Verify that the actual message matches the expected message for special characters
-                        Assert.That(actualMesasge == skillData.ExpectedMessage, "Actual message and expected message do not match");
-                    }
-                    catch (AssertionException ex)
-                    {
-                        // Log the failure and capture a screenshot
-                        test.Log(Status.Fail, "Skill failed: " + ex.Message);
-                        Console.WriteLine(actualMesasge);
-                        CaptureScreenshot("SpecialCharsSkillFailed");
-                    }
-                }
-                else
-                {
-                    // Verify if special characters are not present in the Skill
-                    if (skillPageObj.getSkill(skillData.Skill) == skillData.Skill)
-                    {
-                        Assert.That(skillPageObj.getSkill(skillData.Skill) == skillData.Skill, "Actual skill and expected skill do not match");
-                        Assert.That(skillPageObj.getSkillLevel(skillData.SkillLevel) == skillData.SkillLevel, "Actual skilllevel and expected skilllevel do not match");
-                        Console.WriteLine(actualMesasge);
-                    }
-                    try
-                    {
-                        Assert.That(actualMesasge == skillData.ExpectedMessage || actualMesasge == skillData.ExpectedMessage, "Actual message and expected message do not match");
-                        test.Log(Status.Pass, "Skill passed");
-                        // If information already exists, call the cancel method
-                        if (actualMesasge == skillData.ExpectedMessage)
-                        {
-                            skillPageObj.getCancel();
-                        }
-                    }
-                    catch (AssertionException ex)
-                    {
-                        // Log the failure and capture a screenshot
-                        test.Log(Status.Fail, "Skill failed: " + ex.Message);
-                        Console.WriteLine(actualMesasge);
-                        CaptureScreenshot("SkillTestFailed");
-                    }
-                }
-            }
+            skillSteps.addSkill();
+            test.Log(Status.Pass, "Add_Skill passed");
         }
 
         [Test, Order(3), Description("This test is updating an existing skill in the skill list")]
@@ -114,19 +52,8 @@ namespace AdvanceTaskMarsPart1.Tests
         public void Update_Skill(int id)
         {
             test = extent.CreateTest("Update_Skill").Info("Test started");
-
-            // Read skill data from the specified JSON file and retrieve the item with a matching Id
-            SkillData existingSkillData = SkillDataHelper.ReadSkillData(@"addSkillData.json").FirstOrDefault(x => x.Id == id);
-            SkillData newSkillData = SkillDataHelper.ReadSkillData(@"updateSkillData.json").FirstOrDefault(x => x.Id == id);
-
-            skillPageObj.Update_Skill(existingSkillData, newSkillData);
-            string actualMessage = skillPageObj.getMessage();
-            Assert.That(actualMessage == newSkillData.ExpectedMessage, "Actual message and expected message do not match");
-
-            Assert.That(skillPageObj.getSkill(newSkillData.Skill) == newSkillData.Skill, "Updated skill and expected skill do not match");
-            Assert.That(skillPageObj.getSkillLevel(newSkillData.SkillLevel) == newSkillData.SkillLevel, "Updated skilllevel and expected skilllevel do not match");
+            skillSteps.updateSkill(id);
             test.Log(Status.Pass, "Update_Skill passed");
-            Console.WriteLine(actualMessage);
         }
 
         [Test, Order(4), Description("This test is deleting an existing skill in the skill list")]
@@ -134,50 +61,49 @@ namespace AdvanceTaskMarsPart1.Tests
         public void Delete_Skill(int id)
         {
             test = extent.CreateTest("Delete_Skill").Info("Test started");
-
-            // Read skill data from the specified JSON file and retrieve the item with a matching Id
-            SkillData skillData = SkillDataHelper.ReadSkillData(@"deleteSkillData.json").FirstOrDefault(x => x.Id == id);
-
-            skillPageObj.Delete_Skill(skillData);
-            string actualMessage = skillPageObj.getMessage();
-            Assert.That(actualMessage == skillData.ExpectedMessage, "Actual message and expected message do not match");
-
-            string deletedSkill = skillPageObj.getDeletedSkill(skillData);
-            Assert.That(deletedSkill == null, "Expected skill has not been deleted");
-
+            skillSteps.deleteSkill(id);
             test.Log(Status.Pass, "Delete_Skill passed");
-            Console.WriteLine(actualMessage);
         }
 
         [Test, Order(5), Description("This test is adding empty textbox in the skill list")]
         public void EmptyTextbox_Skill()
         {
             test = extent.CreateTest("EmptyTextbox_Skill").Info("Test started");
-            // Read test data for the emptySkill test case
-            List<SkillData> skillDataList = SkillDataHelper.ReadSkillData(@"emptySkillData.json");
+            skillSteps.emptySkill();
+            test.Log(Status.Pass, "EmptyTextbox_Skill passed");
+        }
 
-            // Iterate through test data and retrieve EmptySkill test data
-            foreach (var skillData in skillDataList)
-            {
-                skillPageObj.Add_Skill(skillData);
-                string actualMessage = skillPageObj.getMessage();
-                Assert.That(actualMessage == skillData.ExpectedMessage, "Actual message and expected message do not match");
-                test.Log(Status.Pass, "EmptyTextbox_Skill passed");
-                Console.WriteLine(actualMessage);
-            }
+        [Test, Order(6), Description("This test is adding exists skill in the skill list")]
+        public void Exists_Skill()
+        {
+            test = extent.CreateTest("Exists_Skill").Info("Test started");
+            skillSteps.existsSkill();
+            test.Log(Status.Pass, "Exists_Skill passed");
+        }
+
+        [Test, Order(7), Description("This test is adding special characters in the skill list")]
+        public void SpecialCharacters_Skill()
+        {
+            test = extent.CreateTest("SpecialCharacters_Skill").Info("Test started");
+            skillSteps.specialCharactersSkill();
+            test.Log(Status.Pass, "SpecialCharacters_Skill passed");
         }
 
         [TearDown]
         public void TearDown()
         {
-            Close();
-        }
+            //If tests fails capture screenshot
+            if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                string testName = TestContext.CurrentContext.Test.Name;
+                test.Log(Status.Fail, $"Tests  '{testName}' failed");
+                CaptureScreenshot(testName);
+            }
 
-        [OneTimeTearDown]
-        public static void ExtentClose()
-        {
-            //Flush the ExtentReports instance
-            extent.Flush();
+            if(driver!=null)
+            {
+                Close();
+            }
         }
     }
 }

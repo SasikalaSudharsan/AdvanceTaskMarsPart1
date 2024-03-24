@@ -7,14 +7,8 @@
   },
   {
     "Id": 2,
-    "Language": "Spanish",
-    "LanguageLevel": "Basic",
-    "ExpectedMessage": "This language is already exist in your language list."
-  },
-  {
-    "Id": 3,
-    "Language": "#$%^&*(",
-    "LanguageLevel": "Conversational",
-    "ExpectedMessage": "Special characters are not allowed"
+    "Language": "French",
+    "LanguageLevel": "Fluent",
+    "ExpectedMessage": "French has been added to your languages"
   }
 ]
