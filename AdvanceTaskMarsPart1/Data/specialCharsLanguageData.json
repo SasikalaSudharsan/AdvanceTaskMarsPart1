@@ -1,0 +1,7 @@
+﻿[
+  {
+    "Language": "#$%^&*",
+    "LanguageLevel": "Fluent",
+    "ExpectedMessage": "Special Characters are not allowed"
+  }
+]

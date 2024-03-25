@@ -1,0 +1,7 @@
+﻿[
+  {
+    "Skill": "#$%^&*",
+    "SkillLevel": "Beginner",
+    "ExpectedMessage": "Special Characters are not allowed"
+  }
+]

@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id" : 1,
+    "Availability": "Part Time",
+    "ExpectedMessage": "Availability updated"
+  },
+  {
+    "Id" :  2,
+    "Hours": "More than 30hours a week",
+    "ExpectedMessage": "Availability updated"
+  },
+  {
+    "Id" :  3,
+    "EarnTarget": "Between $500 and $1000 per month",
+    "ExpectedMessage": "Availability updated"
+  }
+]
