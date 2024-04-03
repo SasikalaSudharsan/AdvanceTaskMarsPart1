@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Id": 1,
+    "Skill": "Specflow",
+    "SkillLevel": "Intermediate",
+    "ExpectedMessage": "Specflow has been added to your skills"
+  },
+  {
+    "Id": 2,
+    "Skill": "Cucumber",
+    "SkillLevel": "Beginner",
+    "ExpectedMessage": "Cucumber has been added to your skills"
+  }
+]
